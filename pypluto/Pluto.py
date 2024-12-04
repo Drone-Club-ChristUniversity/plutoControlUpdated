@@ -72,59 +72,68 @@ class pluto:
         self.TCP_IP = '192.168.0.1'
         self.TCP_PORT = 9060
         self.camera_mode = True
+        print("Camera mode activated")
         
     def arm(self):
-        print("Arming")
         self.rcRoll = 1500
         self.rcYaw = 1500
         self.rcPitch = 1500
         self.rcThrottle = 1000
         self.rcAUX4 = 1500
+        print("Arming")
+
+    def arm_deviate(self, roll=0, pitch=50, throttle=0, yaw=0):
+        self.rcRoll = 1500 + roll
+        self.rcYaw = 1500 + yaw
+        self.rcPitch = 1500 + pitch
+        self.rcThrottle = 1000 + throttle
+        self.rcAUX4 = 1500 
+        print("Arming")
 
     def box_arm(self):
-        print("boxarm")
         self.rcRoll = 1500
         self.rcYaw = 1500
         self.rcPitch = 1500
         self.rcThrottle = 1800
         self.rcAUX4 = 1500
+        print("boxarm")
 
     def disarm(self):
-        print("Disarm")
         self.rcThrottle = 1300
         self.rcAUX4 = 1200
+        print("Disarm")
 
     def devOn(self):
-        print("Developer mode ON")
         self.rcAUX2 = 1500
+        print("Developer mode ON")
         
     def devOff(self):
-        print("Developer mode OFF")
         self.rcAUX2 = 1000
+        print("Developer mode OFF")
         
-    def forward(self):
+    def forward(self, speed=1):
+        self.rcPitch = 1500 + (speed * 100)
         print("Forward")
-        self.rcPitch = 1600
 
-    def backward(self):
+    def backward(self, speed=1):
+        self.rcPitch = 1500 - (speed * 100)
         print("Backward")
-        self.rcPitch = 1300
 
-    def left(self):
+    def left(self, speed=1):
+        self.rcRoll = 1500 - (speed * 100)
         print("Left Roll")
-        self.rcRoll = 1200
 
-    def right(self):
+    def right(self, speed=1):
+        self.rcRoll = 1500 + (speed * 100)
         print("Right Roll")
-        self.rcRoll = 1600
 
-    def left_yaw(self):
+    def left_yaw(self, speed=1):
+        self.rcYaw = 1500 - (speed * 100)
         print("Left Yaw")
-        self.rcYaw = 1300
 
-    def right_yaw(self):
+    def right_yaw(self, speed=1):
+        self.rcYaw = 1500 + (speed * 100)
         print("Right Yaw")
-        self.rcYaw = 1600
 
     def reset(self):
         self.rcRoll = 1500
@@ -132,23 +141,33 @@ class pluto:
         self.rcPitch = 1500
         self.rcYaw = 1500
         self.commandType = 0
+        print("Reset")
+
+    def reset_tilt(self):
+        self.rcRoll = 1500
+        self.rcPitch = 1500
+        self.rcYaw = 1500
+        self.commandType = 0
+        print("Reset Tilt")
+
 
     def increase_height(self):
-        print("Increasing height")
         self.rcThrottle = 1800
+        print("Increasing height")
 
     def decrease_height(self):
-        print("Decreasing height")
         self.rcThrottle = 1300
+        print("Decreasing height")
 
     def take_off(self):
         self.disarm()
         self.box_arm()
-        print("take off")
         self.commandType = 1
+        print("take off")
 
     def land(self):
         self.commandType = 2
+        print("Landing")
 
     def rc_values(self):
         return [self.rcRoll, self.rcPitch, self.rcThrottle, self.rcYaw,
@@ -163,8 +182,8 @@ class pluto:
             print("Invalid motor index. Must be between 0 and 3.")
 
     def trim_left_roll(self):
-        print("Trimming Left Roll")
         self.rcRoll = max(TRIM_MIN, self.rcRoll + 100)
+        print("Trimming Left Roll")
     
             
     def send_request_msp(self, data):
