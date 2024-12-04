@@ -1,3 +1,5 @@
+This project is based on [plutocontrol](https://github.com/DronaAviation/plutocontrol) By [Saail Chavan](mailto:saailchavan02@gmail.com)
+
 # plutocontrol
 
 plutocontrol is a Python library for controlling Pluto drones. This library provides various methods to interact with the drone, including connecting, controlling movements, and accessing sensor data.
@@ -35,11 +37,9 @@ pluto.disarm()
 pluto.disconnect()
 ```
 
-
 ## Class and Methods
 
 ### Pluto Class
-
 
 #### `Connection`
 
@@ -54,6 +54,7 @@ pluto.disconnect()
 ```
 
 #### `Comera module`
+
 Sets the IP and port for the camera connection. should be intialized before pluto.connect().
 
 ```python
@@ -123,6 +124,7 @@ pluto.land()
 ```
 
 #### `Developer Mode`
+
 Toggle Developer Mode
 
 ```Python
@@ -134,6 +136,7 @@ pluto.DevOff()
 ```
 
 #### `motor_speed(motor_index, speed)`
+
 Sets the speed of a specific motor (motor index from 0 to 3).
 
 ```Python
@@ -166,6 +169,7 @@ yaw = pluto.get_yaw()
 #### `Get MSP_RAW_IMU Values`
 
 ##### `Accelerometer`
+
 Returns the accelerometer value for the x,y,z - axis.
 
 ```python
@@ -180,6 +184,7 @@ acc_z = pluto.get_acc_z()
 ```
 
 #### `Gyroscope`
+
 Returns the Gyroscope value for the x,y,z - axis.
 
 ```python
@@ -194,6 +199,7 @@ gyro_z = pluto.get_gyro_z()
 ```
 
 #### `Magnetometer`
+
 Returns the Magntometer value for the x,y,z - axis.
 
 ```python
