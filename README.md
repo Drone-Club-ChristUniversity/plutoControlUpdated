@@ -7,7 +7,7 @@ plutocontrol is a Python library for controlling Pluto drones. This library prov
 ## Installation
 
 ```bash
-pip install plutocontrol
+pip install pypluto-christ
 ```
 
 ## Usage
@@ -19,10 +19,10 @@ After installing the package, you can import and use the `Pluto` class in your P
 #### Example 1
 
 ```python
-from plutocontrol import Pluto
+from pypluto import pluto
 
 # Create an instance of the Pluto class
-pluto = Pluto()
+pluto = pluto()
 
 # Connect to the drone
 pluto.connect()
