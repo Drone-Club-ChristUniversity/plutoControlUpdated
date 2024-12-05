@@ -13,19 +13,20 @@ def get_version():
 
 pypluto_version = get_version()
 
+print("Version: ", pypluto_version)
+
 if not pypluto_version:
     raise ValueError("Version could not be determined from git tags.")
 
 assert "-" not in pypluto_version, "Version format is incorrect"
 assert "." in pypluto_version, "Version format is incorrect"
 
-if not os.path.isfile("pypluto/version.py"):
-    raise FileNotFoundError("Required file 'pypluto/version.py' not found.")
+# if not os.path.isfile("pypluto/version.py"):
+#     raise FileNotFoundError("Required file 'pypluto/version.py' not found.")
 
-with open("pypluto/VERSION", "w", encoding="utf-8") as fh:
-    fh.write(f"{pypluto_version}\n")
+# with open("pypluto/VERSION", "w", encoding="utf-8") as fh:
+#     fh.write(f"{pypluto_version}\n")
 
-print("Version: ", pypluto_version)
 
 setup(
     name='pypluto-christ',
