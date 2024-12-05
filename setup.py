@@ -2,26 +2,28 @@ from setuptools import setup, find_packages
 import subprocess
 import os
 
-pypluto_version = (
-    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
-    .stdout.decode("utf-8")
-    .strip()
-)
+def get_version():
+    result = subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE, text=True)
+    version = result.stdout.strip()
+    if "-" in version:
+        # Convert to PEP 440 compliant version
+        v, i, s = version.split("-")
+        version = v + "+" + i + ".git." + s
+    return version
 
-if "-" in pypluto_version:
-    # when not on tag, git describe outputs: "1.3.3-22-gdf81228"
-    # pip has gotten strict with version numbers
-    # so change it to: "1.3.3+22.git.gdf81228"
-    # See: https://peps.python.org/pep-0440/#local-version-segments
-    v,i,s = pypluto_version.split("-")
-    pypluto_version = v + "+" + i + ".git." + s
+pypluto_version = get_version()
 
-assert "-" not in pypluto_version
-assert "." in pypluto_version
+if not pypluto_version:
+    raise ValueError("Version could not be determined from git tags.")
 
-assert os.path.isfile("pypluto/version.py")
+assert "-" not in pypluto_version, "Version format is incorrect"
+assert "." in pypluto_version, "Version format is incorrect"
+
+if not os.path.isfile("pypluto/version.py"):
+    raise FileNotFoundError("Required file 'pypluto/version.py' not found.")
+
 with open("pypluto/VERSION", "w", encoding="utf-8") as fh:
-    fh.write("%s\n" % pypluto_version)
+    fh.write(f"{pypluto_version}\n")
 
 print("Version: ", pypluto_version)
 
