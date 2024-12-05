@@ -143,10 +143,10 @@ class pluto:
         self.commandType = 0
         print("Reset")
 
-    def reset_tilt(self):
-        self.rcRoll = 1500
-        self.rcPitch = 1500
-        self.rcYaw = 1500
+    def reset_tilt(self, pitch=0, roll=0, yaw=0):
+        self.rcRoll = 1500 + roll
+        self.rcPitch = 1500 + pitch
+        self.rcYaw = 1500 + yaw
         self.commandType = 0
         print("Reset Tilt")
 
